@@ -1,8 +1,11 @@
 # 📋 Task Manager with Role-Based Access Control (RBAC)
 
-A full-stack **MERN** (MongoDB, Express, React, Node.js) application designed to demonstrate secure Authentication, Authorization, and CRUD operations.
+A full-stack **MERN** application demonstrating secure Authentication, Authorization, and Task Management with user and admin roles.
 
-This project features a complete task management system where users can manage their personal tasks, while Administrators have oversight of the entire system.
+This project includes protected routes, secure JWT login, RBAC permissions, and a clean, responsive UI built with Tailwind CSS.
+
+🔗 **GitHub Repository:**
+[https://github.com/bhargavaalapati/mern_task_manager_RBA](https://github.com/bhargavaalapati/mern_task_manager_RBA)
 
 ---
 
@@ -10,68 +13,74 @@ This project features a complete task management system where users can manage t
 
 ### 🔐 Authentication & Security
 
-- **User Registration & Login:** Secure access using **JWT (JSON Web Tokens)**.
-- **Password Hashing:** Passwords are encrypted using **Bcrypt** before storage.
-- **Protected Routes:** Frontend route guards prevent unauthorized access to the Dashboard.
+- Secure **User Registration & Login** using JWT.
+- **Password hashing** with Bcrypt.
+- **Protected routes** on both Frontend & Backend.
 
 ### 👤 Role-Based Access Control (RBAC)
 
-- **User Role:**
-  - Create, Read, Update, and Delete (CRUD) _own_ tasks only.
-  - Cannot access tasks created by others.
+- **User Role (Default):**
+
+  - Can Create, Read, Update, Delete **only their own** tasks.
+
 - **Admin Role:**
-  - View **all** tasks in the system.
-  - Delete **any** task.
-  - Restricted from creating tasks (Monitoring role only).
+
+  - Can view **all** tasks in the system.
+  - Can delete **any** task.
+  - Restricted from creating tasks (monitoring-only role).
 
 ### 🛠️ Functionality & UX
 
-- **Pagination:** Server-side pagination to handle large datasets efficiently.
-- **Search & Filter:** Real-time filtering by Task Status and Search terms.
-- **Responsive UI:** Built with **Tailwind CSS** for a modern, mobile-friendly design.
-- **State Management:** React Context API for managing Authentication state.
+- **Pagination** for improved performance.
+- **Search & Filter** by task title and status.
+- **Responsive UI** built using Tailwind CSS.
+- **React Context API** for Authentication state.
 
 ---
 
 ## 💻 Tech Stack
 
-| Area         | Technology                                          |
-| :----------- | :-------------------------------------------------- |
-| **Frontend** | React (Vite), Tailwind CSS, Axios, React Router DOM |
-| **Backend**  | Node.js, Express.js                                 |
-| **Database** | MongoDB, Mongoose                                   |
-| **Auth**     | JSON Web Token (JWT), BcryptJS                      |
+| Area         | Technologies                                    |
+| ------------ | ----------------------------------------------- |
+| **Frontend** | React (Vite), Tailwind CSS, Axios, React Router |
+| **Backend**  | Node.js, Express.js                             |
+| **Database** | MongoDB, Mongoose                               |
+| **Auth**     | JWT, BcryptJS                                   |
 
 ---
 
-## 🛠️ Setup Instructions
+# 🛠️ Setup Instructions
 
-Follow these steps to get the project running locally.
+Follow the steps below to run this project locally.
 
-### Prerequisites
+---
 
-- Node.js (v14 or higher)
-- MongoDB (Local installed or Atlas Cloud URL)
+### ✔️ Prerequisites
 
-### 1. Clone the Repository
+- Node.js (v14+)
+- MongoDB (Local or Atlas)
+
+---
+
+## 1️⃣ Clone the Repository
 
 ```bash
-git clone <your-repo-url-here>
-cd task-manager-rbac
+git clone https://github.com/bhargavaalapati/mern_task_manager_RBA
+cd mern_task_manager_RBA
 ```
 
-````
+---
 
-### 2\. Backend Configuration
+## 2️⃣ Backend Configuration
 
-Navigate to the backend folder and install dependencies.
+Navigate to the backend directory:
 
 ```bash
 cd backend
 npm install
 ```
 
-**Create a `.env` file** in the `backend` root directory with the following variables:
+Create a `.env` file:
 
 ```env
 PORT=5000
@@ -79,105 +88,108 @@ MONGO_URI=mongodb://localhost:27017/taskmanager_db
 JWT_SECRET=your_super_secret_key_123
 ```
 
-_(Note: Replace `MONGO_URI` with your Atlas connection string if using cloud DB)_
+> Replace `MONGO_URI` with your Atlas connection string if needed.
 
-Start the Backend server:
+Start the backend:
 
 ```bash
 npm run dev
 ```
 
-_Server should run on http://localhost:5000_
+Backend URL: **[http://localhost:5000](http://localhost:5000)**
 
-### 3\. Frontend Configuration
+---
 
-Open a new terminal, navigate to the frontend folder, and install dependencies.
+## 3️⃣ Frontend Configuration
+
+Open a new terminal:
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-Start the React application:
+Start the frontend:
 
 ```bash
 npm run dev
 ```
 
-_App should run on http://localhost:5173_
+Frontend URL: **[http://localhost:5173](http://localhost:5173)**
 
 ---
 
-## 📡 API Endpoints
+# 📡 API Endpoints
 
-The backend exposes the following RESTful endpoints:
+## 🔐 Authentication
 
-### Authentication
-
-| Method | Endpoint        | Description                   |
-| :----- | :-------------- | :---------------------------- |
-| `POST` | `/api/register` | Register a new user           |
-| `POST` | `/api/login`    | Login and receive a JWT token |
-
-### Tasks
-
-| Method   | Endpoint         | Description                                            | Access                   |
-| :------- | :--------------- | :----------------------------------------------------- | :----------------------- |
-| `GET`    | `/api/tasks`     | Get all tasks (Supports pagination: `?page=1&limit=6`) | User (Own) / Admin (All) |
-| `POST`   | `/api/tasks`     | Create a new task                                      | User Only                |
-| `GET`    | `/api/tasks/:id` | Get details of a specific task                         | Owner / Admin            |
-| `PUT`    | `/api/tasks/:id` | Update a task (Title, Desc, Status)                    | Owner Only               |
-| `DELETE` | `/api/tasks/:id` | Delete a task                                          | Owner / Admin            |
+| Method | Endpoint        | Description                 |
+| ------ | --------------- | --------------------------- |
+| POST   | `/api/register` | Register a new user         |
+| POST   | `/api/login`    | Login and receive JWT token |
 
 ---
 
-## 🧪 Testing the Roles
+## 📝 Tasks
 
-### 1\. Create a Standard User
-
-1.  Go to the Register page.
-2.  Sign up with username: `user1` / password: `123`.
-3.  Create some tasks. You will see only your tasks.
-
-### 2\. Create an Admin User
-
-_By default, all new registrations are "users". To test the Admin role:_
-
-1.  Register a new user (e.g., `admin1`).
-2.  Open your Database (MongoDB Compass or Atlas).
-3.  Find the `users` collection.
-4.  Find `admin1` and manually change the `role` field from `"user"` to `"admin"`.
-5.  Log out and Log back in as `admin1`.
-6.  You should now see an **"Admin Mode"** banner and see tasks created by `user1`.
+| Method | Endpoint         | Description                                   | Access                   |
+| ------ | ---------------- | --------------------------------------------- | ------------------------ |
+| GET    | `/api/tasks`     | Get tasks (with pagination `?page=1&limit=6`) | User (own) / Admin (all) |
+| POST   | `/api/tasks`     | Create a new task                             | User only                |
+| GET    | `/api/tasks/:id` | Get task details                              | Owner / Admin            |
+| PUT    | `/api/tasks/:id` | Update task (title, desc, status)             | Owner only               |
+| DELETE | `/api/tasks/:id` | Delete task                                   | Owner / Admin            |
 
 ---
 
-## 📂 Project Structure
+# 🧪 Testing the Roles
 
-```text
+### ✔️ Standard User
+
+1. Register a user (e.g., `user1`)
+2. Login and create tasks
+3. User sees **only their own** tasks
+
+### ✔️ Admin User
+
+1. Register another user (e.g., `admin1`)
+2. Open MongoDB Compass/Atlas
+3. Go to **users** collection
+4. Change role manually:
+
+```json
+"role": "admin"
+```
+
+5. Login again → You should see:
+   ✔ Admin Mode banner
+   ✔ All users’ tasks
+
+---
+
+# 📂 Project Structure
+
+```
 task-manager-rbac/
 ├── backend/
-│   ├── config/         # DB Connection
-│   ├── controllers/    # Logic for Auth and Tasks
-│   ├── middleware/     # Auth & Admin checks
-│   ├── models/         # Mongoose Schemas
-│   ├── routes/         # API Routes
-│   └── server.js       # Entry point
+│   ├── config/         # MongoDB connection
+│   ├── controllers/    # Auth & Task controllers
+│   ├── middleware/     # JWT auth & Role checks
+│   ├── models/         # Mongoose schemas
+│   ├── routes/         # API routing
+│   └── server.js       # Backend entry point
 │
 └── frontend/
     ├── src/
-    │   ├── components/ # Reusable UI (TaskCard, Navbar)
-    │   ├── context/    # Auth State Management
-    │   ├── pages/      # Dashboard, Login, Forms
-    │   ├── services/   # Axios Configuration
-    │   └── App.jsx     # Routing & Route Guards
+    │   ├── components/ # UI components
+    │   ├── context/    # Auth context
+    │   ├── pages/      # App pages
+    │   ├── services/   # Axios setup
+    │   └── App.jsx     # Routes & guards
 ```
 
 ---
 
 ## 📝 License
 
-This project is open-source and available for educational purposes.
-
-```
-````
+This project is open-source and free for educational use.
